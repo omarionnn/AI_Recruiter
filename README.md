@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a starter template for building an AI-powered phone screening system. The goal is to automate first-round phone screens with candidates, allowing recruiters to initiate calls and review structured call logs through an operator console.
+AI-powered phone screening system. The goal is to automate first-round phone screens with candidates, allowing recruiters to initiate calls and review structured call logs through an operator console.
 
 ## Getting Started
 
@@ -75,26 +75,3 @@ src/
 └── lib/                 # Utility functions
 ```
 
-## Available Resources
-
-### Example API Endpoint
-See `src/app/api/example/route.ts` for an example of how to create API endpoints in Next.js 14.
-
-### Example Component
-See `src/components/example-api-usage.tsx` for an example of how to interact with API endpoints from React components.
-
-### Type Definitions
-Basic TypeScript interfaces are provided in `src/types/index.ts`. Expand these based on your implementation needs.
-
-### UI Components
-shadcn/ui components are pre-installed:
-- Button
-- Card
-- Form
-- Input
-- Label
-- Table
-- Badge
-- Dialog
-
-Good luck! Focus on demonstrating your ability to structure a clean, functional application.
