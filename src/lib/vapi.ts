@@ -49,6 +49,19 @@ class VapiService {
     }
   }
 
+  async getCallDetails(callId: string) {
+    try {
+      const response = await fetch(`/api/calls/${callId}`)
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`)
+      }
+      return await response.json()
+    } catch (error) {
+      console.error('Error getting call details:', error)
+      throw error
+    }
+  }
+
   async getCalls(limit = 10) {
     try {
       const response = await fetch(`/api/calls?limit=${limit}`)

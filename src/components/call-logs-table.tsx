@@ -95,6 +95,9 @@ export function CallLogsTable({ }: CallLogsTableProps) {
       loadCalls()
       setDeleteConfirmCall(null)
 
+      // Notify other components about the update
+      window.dispatchEvent(new Event('calls-updated'))
+
       // Close details dialog if the deleted call was being viewed
       if (selectedCall && (selectedCall.id === call.id || selectedCall.vapiCallId === call.vapiCallId)) {
         setSelectedCall(null)
@@ -120,7 +123,7 @@ export function CallLogsTable({ }: CallLogsTableProps) {
   const getStatusBadge = (status: string) => {
     const variants: Record<string, "default" | "secondary" | "destructive" | "outline"> = {
       'initiated': 'outline',
-      'ringing': 'secondary', 
+      'ringing': 'secondary',
       'in-progress': 'default',
       'completed': 'secondary',
       'failed': 'destructive',
@@ -177,23 +180,23 @@ export function CallLogsTable({ }: CallLogsTableProps) {
       <CardContent>
         <div className="space-y-4">
           {calls.map((call) => (
-            <div 
-              key={call.id} 
-              className="border rounded-lg p-4 hover:bg-gray-50 transition-colors cursor-pointer"
+            <div
+              key={call.id}
+              className="border rounded-lg p-4 hover:bg-secondary/50 transition-colors cursor-pointer"
               onClick={() => handleViewCall(call)}
             >
               <div className="flex items-center justify-between">
                 <div className="flex-1 space-y-2">
                   <div className="flex items-center gap-3">
                     <div className="flex items-center gap-2">
-                      <User className="h-4 w-4 text-gray-500" />
+                      <User className="h-4 w-4 text-muted-foreground" />
                       <span className="font-medium">{call.recipientName}</span>
                     </div>
-                    <span className="text-gray-500 font-mono text-sm">{call.phoneNumber}</span>
+                    <span className="text-muted-foreground font-mono text-sm">{call.phoneNumber}</span>
                     {getStatusBadge(call.status)}
                   </div>
-                  
-                  <div className="flex items-center gap-4 text-sm text-gray-500">
+
+                  <div className="flex items-center gap-4 text-sm text-muted-foreground">
                     <div className="flex items-center gap-1">
                       <Calendar className="h-3 w-3" />
                       <span>{formatDate(call.startedAt)}</span>
@@ -206,7 +209,7 @@ export function CallLogsTable({ }: CallLogsTableProps) {
                     )}
                   </div>
                 </div>
-                
+
                 <div className="flex items-center gap-2">
                   <Button
                     variant="outline"
@@ -227,7 +230,7 @@ export function CallLogsTable({ }: CallLogsTableProps) {
                       e.stopPropagation()
                       setDeleteConfirmCall(call)
                     }}
-                    className="flex items-center gap-1 text-red-600 border-red-200 hover:bg-red-50"
+                    className="flex items-center gap-1 text-destructive border-destructive/20 hover:bg-destructive/10 hover:text-destructive"
                   >
                     <Trash2 className="h-3 w-3" />
                     Delete
@@ -237,7 +240,7 @@ export function CallLogsTable({ }: CallLogsTableProps) {
             </div>
           ))}
         </div>
-        
+
         {calls.length > 5 && (
           <div className="mt-4 text-center">
             <Button variant="outline" size="sm">
@@ -325,8 +328,8 @@ export function CallLogsTable({ }: CallLogsTableProps) {
                 ) : (
                   <div className="bg-gray-50 p-4 rounded-md">
                     <p className="text-muted-foreground text-sm">
-                      {callDetails.status === 'completed' || callDetails.status === 'ended' 
-                        ? 'Transcript not available for this call. Click "Debug Messages" to see raw message data.' 
+                      {callDetails.status === 'completed' || callDetails.status === 'ended'
+                        ? 'Transcript not available for this call. Click "Debug Messages" to see raw message data.'
                         : 'Transcript will be available after the call is completed.'}
                     </p>
                   </div>
